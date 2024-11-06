@@ -27,6 +27,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Make Temporary .env File
+        run: |
+         echo "SECRET_KEY='temp_key'" > .env
+
       - name: Test Auth Endpoints
         run: |
          python -m test_auth
