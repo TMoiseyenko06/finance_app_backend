@@ -5,3 +5,4 @@ Flask
 flask-marshmallow
 marshmallow
 mongomock
+jwt
