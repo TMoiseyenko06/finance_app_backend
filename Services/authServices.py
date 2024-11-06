@@ -1,14 +1,15 @@
 import pymongo
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask import jsonify
 from utils.util import encode_token
+from database import db
 
-cluster = pymongo.MongoClient('mongodb://localhost:27017/')
-db = cluster['finance_db']
 accounts_collection = db['accounts']
 
+
+
 def register(user_data):
-    if accounts_collection.count_documents({'username':user_data['username']}, limit = 1):
+    if accounts_collection.count_documents({'username':user_data['username']}, limit = 1) == 0:
         new_account = {
             "username":user_data['username'],
             "password":generate_password_hash(user_data['password'])
@@ -18,11 +19,15 @@ def register(user_data):
                         "message":"User Register"    
                         }),201
     else:
-        return jsonify({"error":"username already exists"})
+        return jsonify({"error":"username already exists"}), 400
 
 def login(user_data):
-    if accounts_collection.count_documents({"username":user_data['username']}, limit = 1 ):
-        user = accounts_collection.find({"username":user_data['username'],"password":generate_password_hash(user_data['password'])})
+    if accounts_collection.count_documents({"username":user_data['username']}, limit = 1 ) != 0:
+        user = accounts_collection.find_one({"username": user_data['username']})
+        if user is None:
+           return jsonify({"status": "Error", "message": "Invalid username or password"}), 400
+        if not check_password_hash(user['password'], user_data['password']):
+            return jsonify({"status": "Error", "message": "Invalid username or password"}), 400
         user_id = user['_id']
         return jsonify({
             "status":"OK",

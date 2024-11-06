@@ -1,6 +1,7 @@
 from flask import Flask
 from schema import ma
 from Routes.authBP import auth_blueprint
+import pymongo
 
 
 def create_app(config_name):

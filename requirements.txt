@@ -4,3 +4,4 @@ gunicorn
 Flask
 flask-marshmallow
 marshmallow
+mongomock

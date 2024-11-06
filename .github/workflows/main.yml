@@ -27,6 +27,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Test Auth Endpoints
+        run: |
+         python -m test_auth
+
   deploy:
     runs-on: ubuntu-latest
     needs: test
