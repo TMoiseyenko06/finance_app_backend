@@ -1,0 +1,6 @@
+Werkzeug
+pymongo
+gunicorn
+Flask
+flask-marshmallow
+marshmallow
