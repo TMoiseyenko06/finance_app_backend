@@ -13,7 +13,7 @@ def encode_token(user_id):
     payload = {
         'exp' : datetime.now() + timedelta(days=1),
         'iat' : datetime.now(),
-        'usr' : str(user_id)
+        'usr' : f'{user_id}'
     }
     token = jwt.encode(payload,SECRET_KEY,algorithm='HS256')
     return token
