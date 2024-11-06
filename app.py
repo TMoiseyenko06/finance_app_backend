@@ -1,5 +1,5 @@
 from flask import Flask
-from finance_managment_app.backend.schema import ma
+from schema import ma
 from Routes.authBP import auth_blueprint
 
 
