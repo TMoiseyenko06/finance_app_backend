@@ -5,5 +5,5 @@ Flask
 flask-marshmallow
 marshmallow
 mongomock
-jwt
+PyJWT
 python-dotenv
